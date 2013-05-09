@@ -1,6 +1,10 @@
-# Safe::Migrations
+safe-migrations
+===============
 
-TODO: Write a gem description
+Assert rails migration safety at dev time.
+
+blah blah blah
+
 
 ## Installation
 
