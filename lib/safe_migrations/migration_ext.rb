@@ -1,7 +1,7 @@
 module SafeMigrations
   module MigrationExt
     module ClassMethods
-      UNSAFE_METHODS = [:add_column, :remove_column, :rename_column]
+      UNSAFE_METHODS = [:drop_table, :remove_column]
 
       def self.extended(base)
         class << base
@@ -28,6 +28,8 @@ module SafeMigrations
         case method
         when :remove_column
           raise UnsafeRemoveColumn
+        when :drop_table
+          raise UnsafeDropTable
         end
       end
     end

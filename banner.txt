@@ -1,0 +1,32 @@
+
+ __          __     _____ _______ _ 
+ \ \        / /\   |_   _|__   __| |
+  \ \  /\  / /  \    | |    | |  | |
+   \ \/  \/ / /\ \   | |    | |  | |
+    \  /\  / ____ \ _| |_   | |  |_|
+     \/  \/_/    \_\_____|  |_|  (_)
+                                    
+    YOUR MIGRATION DID NOT FINISH!
+
+You are running a migration that can be problematic
+unless you have taken the proper steps to ensure that
+it is successful.
+
+ActiveRecord caches attributes which can cause problems
+when removing columns, adding columns or changing column
+names.
+
+Read this article for more information:
+
+http://pedro.herokuapp.com/past/2011/7/13/rails_migrations_with_no_downtime/
+
+Once you are confident that your migration is safe, wrap
+your migration in a safety_assured block.  See below:
+
+  class MySafeMigration < ActiveRecord::Migration
+    def self.up
+      safety_assured { remove_column :foo_table, :foo_column }
+    end
+  end
+
+Have a nice day!

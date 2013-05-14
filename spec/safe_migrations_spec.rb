@@ -8,6 +8,12 @@ describe "SafeMigrations::MigrationExtTest" do
         TestUnsafeRemoveColumn.up
       }.should raise_error(SafeMigrations::UnsafeRemoveColumn)
     end
+
+    it "should not let you run drop table" do
+      lambda {
+        TestUnsafeDropTable.up
+      }.should raise_error(SafeMigrations::UnsafeDropTable)
+    end
   end
 
   describe "when there is safety assurance" do
@@ -19,6 +25,15 @@ describe "SafeMigrations::MigrationExtTest" do
         )
 
       TestSafeRemoveColumn.up
+    end
+
+    it "should let you run drop_table" do
+      mock(TestSafeDropTable).method_missing_without_safety(
+          :drop_table,
+          anything
+        )
+
+      TestSafeDropTable.up
     end
   end
 end
