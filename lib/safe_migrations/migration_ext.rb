@@ -20,8 +20,12 @@ module SafeMigrations
         !!@safety
       end
 
+      def bypassing_safety_checks?
+        ENV['FORCE'].present?
+      end
+
       def method_missing_with_safety(method, *args, &block)
-        if safe? || !UNSAFE_METHODS.include?(method)
+        if safe? || bypassing_safety_checks? || !UNSAFE_METHODS.include?(method)
           return method_missing_without_safety(method, *args, &block)
         end
 
