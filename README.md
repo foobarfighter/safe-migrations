@@ -10,7 +10,7 @@ blah blah blah
 
 Add this line to your application's Gemfile:
 
-    gem 'safe-migrations'
+    gem 'safe-migrations', :require => 'safe_migrations'
 
 And then execute:
 
