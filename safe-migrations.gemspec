@@ -20,5 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rr"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "rake"
-  gem.add_runtime_dependency     "activerecord", "3.0.20"
+  gem.add_runtime_dependency     "activerecord", "~> 3.0.0"
 end
