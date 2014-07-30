@@ -6,7 +6,7 @@ require 'safe_migrations/version'
 Gem::Specification.new do |gem|
   gem.name          = "safe-migrations"
   gem.version       = SafeMigrations::VERSION
-  gem.authors       = ["Bob Remeika"]
+  gem.authors       = ["Bob Remeika", "David Waller"]
   gem.email         = ["bob.remeika@gmail.com"]
   gem.description   = %q{Assert rails migration safety at dev time}
   gem.summary       = %q{Protect yourself from migrations that are unsafe to run without downtime}
