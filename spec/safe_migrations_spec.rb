@@ -2,6 +2,13 @@ require File.dirname(__FILE__) + "/spec_helper"
 require File.dirname(__FILE__) + "/migrations"
 
 describe "SafeMigrations::MigrationExtTest" do
+  before :all do
+    # Get rid of migration stdout/stderr, e.g.
+    # ==  TestSafeRemoveColumn: migrating ===========================================
+    # ==  TestSafeRemoveColumn: migrated (0.0001s) ==================================
+    ActiveRecord::Migration.verbose = false
+  end
+
   describe "when there is no safety assurance" do
     it "should not let you run remove_column" do
       expect {
