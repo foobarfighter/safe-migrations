@@ -1,8 +1,6 @@
 module SafeMigrations
   module MigrationExt
     module ClassMethods
-      UNSAFE_METHODS = [:drop_table, :remove_column]
-
       def self.extended(base)
         class << base
           alias_method_chain :method_missing, :safety
