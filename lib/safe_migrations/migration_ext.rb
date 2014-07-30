@@ -21,7 +21,7 @@ module SafeMigrations
       end
 
       def bypassing_safety_checks?
-        ENV['FORCE'].present?
+        ENV['FORCE'] && ENV['FORCE'] != ''
       end
 
       def method_missing_with_safety(method, *args, &block)
