@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + "/spec_helper"
 
-describe "SafeMigrations::MigrationExtTest" do
+describe SafeMigrations::MigrationExt do
   describe "when there is no safety assurance" do
     it "should not let you run remove_column" do
       expect {
@@ -62,6 +62,35 @@ describe "SafeMigrations::MigrationExtTest" do
        ActiveRecord::Migration.safety_assured do
          ActiveRecord::Migration.drop_table :some_table
        end
+    end
+  end
+end
+
+describe SafeMigrations::UnsafeRemoveColumn do
+  describe "message" do
+    let(:message) { subject.message }
+
+    it "should include the banner text" do
+      expect(message).to match(/You are running a migration that can be problematic/)
+    end
+
+    it "should give migration specific details" do
+      expect(message).to match(/removing columns/)
+    end
+  end
+end
+
+
+describe SafeMigrations::UnsafeAddIndex do
+  describe "message" do
+    let(:message) { subject.message }
+
+    it "should include the banner text" do
+      expect(message).to match(/You are running a migration that can be problematic/)
+    end
+
+    it "should give migration specific details" do
+      expect(message).to match(/create it concurrently instead/)
     end
   end
 end
