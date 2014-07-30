@@ -10,4 +10,5 @@ module SafeMigrations
   class UnsafeAddColumn    < UnsafeMigration; end
   class UnsafeRemoveColumn < UnsafeMigration; end
   class UnsafeDropTable    < UnsafeMigration; end
+  class UnsafeAddIndex     < UnsafeMigration; end
 end
