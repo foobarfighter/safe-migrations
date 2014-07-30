@@ -25,19 +25,17 @@ module SafeMigrations
       end
 
       def method_missing_with_safety(method, *args, &block)
-        if safe? || bypassing_safety_checks?
-          return method_missing_without_safety(method, *args, &block)
-        end
-
-        case method
-        when :remove_column
-          raise UnsafeRemoveColumn
-        when :drop_table
-          raise UnsafeDropTable
-        when :add_index
-          options = args[2]
-          unless (options && options[:algorithm] == :concurrently)
-            raise UnsafeAddIndex
+        unless safe? || bypassing_safety_checks?
+          case method
+          when :remove_column
+            raise UnsafeRemoveColumn
+          when :drop_table
+            raise UnsafeDropTable
+          when :add_index
+            options = args[2]
+            unless (options && options[:algorithm] == :concurrently)
+              raise UnsafeAddIndex
+            end
           end
         end
 
