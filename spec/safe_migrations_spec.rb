@@ -4,15 +4,15 @@ require File.dirname(__FILE__) + "/migrations"
 describe "SafeMigrations::MigrationExtTest" do
   describe "when there is no safety assurance" do
     it "should not let you run remove_column" do
-      lambda {
+      expect {
         TestUnsafeRemoveColumn.up
-      }.should raise_error(SafeMigrations::UnsafeRemoveColumn)
+      }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
     end
 
     it "should not let you run drop table" do
-      lambda {
+      expect {
         TestUnsafeDropTable.up
-      }.should raise_error(SafeMigrations::UnsafeDropTable)
+      }.to raise_error(SafeMigrations::UnsafeDropTable)
     end
   end
 
