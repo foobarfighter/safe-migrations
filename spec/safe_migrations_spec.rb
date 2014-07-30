@@ -8,12 +8,6 @@ describe SafeMigrations::MigrationExt do
       }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
     end
 
-    it "should not let you run drop table" do
-      expect {
-        ActiveRecord::Migration.drop_table :some_table
-      }.to raise_error(SafeMigrations::UnsafeDropTable)
-    end
-
     describe "add_index" do
       it "should fail without an algorithm specified" do
         expect {
@@ -53,14 +47,15 @@ describe SafeMigrations::MigrationExt do
        end
     end
 
-    it "should let you run drop_table" do
+    it "should let you run add_index without an alogrithm specified" do
       mock(ActiveRecord::Migration).method_missing_without_safety(
-          :drop_table,
+          :add_index,
+          anything,
           anything
         )
 
        ActiveRecord::Migration.safety_assured do
-         ActiveRecord::Migration.drop_table :some_table
+         ActiveRecord::Migration.add_index(:some_table, :column)
        end
     end
   end

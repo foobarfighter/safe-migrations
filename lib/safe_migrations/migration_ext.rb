@@ -27,8 +27,6 @@ module SafeMigrations
           case method
           when :remove_column
             raise UnsafeRemoveColumn
-          when :drop_table
-            raise UnsafeDropTable
           when :add_index
             options = args[2]
             unless (options && options[:algorithm] == :concurrently)

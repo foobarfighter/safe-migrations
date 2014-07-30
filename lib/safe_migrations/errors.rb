@@ -15,7 +15,6 @@ module SafeMigrations
   end
 
   class UnsafeAddColumn    < UnsafeMigration; end
-  class UnsafeDropTable    < UnsafeMigration; end
 
   class UnsafeRemoveColumn < UnsafeMigration
     def migration_specific_message
