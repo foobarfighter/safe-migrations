@@ -32,6 +32,29 @@ describe SafeMigrations::MigrationExt do
         ActiveRecord::Migration.add_index(:some_table, :column, :algorithm => :concurrently)
       end
     end
+
+    describe "change_table" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.change_table do |t|
+            t.index :column, :algorithm => :other
+          end
+        }.to raise_error(SafeMigrations::UnsafeChangeTable)
+
+      end
+
+      describe "t.index" do
+        it "should fail with an algorithm other than :concurrently" do
+          pending "Inspecting what happens in a change_table block is not currently supported"
+
+          expect {
+            ActiveRecord::Migration.change_table do |t|
+              t.index :column, :algorithm => :other
+            end
+          }.to raise_error(SafeMigrations::UnsafeAddIndex)
+        end
+      end
+    end
   end
 
   describe "when there is safety assurance" do
@@ -75,7 +98,6 @@ describe SafeMigrations::UnsafeRemoveColumn do
   end
 end
 
-
 describe SafeMigrations::UnsafeAddIndex do
   describe "message" do
     let(:message) { subject.message }
@@ -86,6 +108,20 @@ describe SafeMigrations::UnsafeAddIndex do
 
     it "should give migration specific details" do
       expect(message).to match(/create it concurrently instead/)
+    end
+  end
+end
+
+describe SafeMigrations::UnsafeChangeTable do
+  describe "message" do
+    let(:message) { subject.message }
+
+    it "should include the banner text" do
+      expect(message).to match(/You are running a migration that can be problematic/)
+    end
+
+    it "should give migration specific details" do
+      expect(message).to match(/cannot help you here/)
     end
   end
 end

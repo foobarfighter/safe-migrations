@@ -41,4 +41,12 @@ adding the index, like so:
  end"
     end
   end
+
+  class UnsafeChangeTable < UnsafeMigration
+    def migration_specific_message
+"The safe_migrations gem does not support inspecting what happens inside a
+change_table block, so cannot help you here.  Please make really sure that what
+you're doing is safe before proceding!"
+    end
+  end
 end
