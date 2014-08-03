@@ -22,10 +22,28 @@ describe SafeMigrations::MigrationExt do
 TEST
     end
 
-    it "should not let you run remove_column" do
-      expect {
-        ActiveRecord::Migration.remove_column :some_table, :some_column
-      }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
+    describe "remove_column" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.remove_column :some_table, :some_column
+        }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
+      end
+    end
+
+    describe "remove_timestamps" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.remove_timestamps :some_table
+        }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
+      end
+    end
+
+    describe "remove_reference" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.remove_reference :some_table, :some_column
+        }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
+      end
     end
 
     describe "rename_table" do

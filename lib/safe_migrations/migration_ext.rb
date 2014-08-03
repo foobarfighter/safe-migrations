@@ -27,6 +27,10 @@ module SafeMigrations
           case method
           when :remove_column
             raise UnsafeRemoveColumn
+          when :remove_timestamps
+            raise UnsafeRemoveColumn
+          when :remove_reference
+            raise UnsafeRemoveColumn
           when :change_table
             raise UnsafeChangeTable
           when :rename_table
