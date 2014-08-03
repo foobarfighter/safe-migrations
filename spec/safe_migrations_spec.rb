@@ -1,7 +1,27 @@
 require File.dirname(__FILE__) + "/spec_helper"
 
 describe SafeMigrations::MigrationExt do
+  SAFE_MIGRATIONS = [
+    :add_column,
+    :add_reference,
+    :add_timestamps,
+    :create_table,
+    :create_join_table,
+    :drop_table,
+    :drop_join_table
+  ]
+
   describe "when there is no safety assurance" do
+
+    SAFE_MIGRATIONS.each do |migration_method_name|
+      eval <<TEST
+        it "allows #{migration_method_name}" do
+          mock(ActiveRecord::Migration).method_missing_without_safety(:#{migration_method_name})
+          ActiveRecord::Migration.#{migration_method_name}
+        end
+TEST
+    end
+
     it "should not let you run remove_column" do
       expect {
         ActiveRecord::Migration.remove_column :some_table, :some_column
