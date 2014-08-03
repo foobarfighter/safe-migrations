@@ -8,6 +8,22 @@ describe SafeMigrations::MigrationExt do
       }.to raise_error(SafeMigrations::UnsafeRemoveColumn)
     end
 
+    describe "rename_table" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.rename_table :old_name, :new_name
+        }.to raise_error(SafeMigrations::UnsafeRenameTable)
+      end
+    end
+
+    describe "rename_column" do
+      it "should fail" do
+        expect {
+          ActiveRecord::Migration.rename_column :old_name, :new_name
+        }.to raise_error(SafeMigrations::UnsafeRenameColumn)
+      end
+    end
+
     describe "add_index" do
       it "should fail without an algorithm specified" do
         expect {
@@ -94,6 +110,34 @@ describe SafeMigrations::UnsafeRemoveColumn do
 
     it "should give migration specific details" do
       expect(message).to match(/removing columns/)
+    end
+  end
+end
+
+describe SafeMigrations::UnsafeRenameTable do
+  describe "message" do
+    let(:message) { subject.message }
+
+    it "should include the banner text" do
+      expect(message).to match(/You are running a migration that can be problematic/)
+    end
+
+    it "should give migration specific details" do
+      expect(message).to match(/no way to rename a table without downtime/)
+    end
+  end
+end
+
+describe SafeMigrations::UnsafeRenameColumn do
+  describe "message" do
+    let(:message) { subject.message }
+
+    it "should include the banner text" do
+      expect(message).to match(/You are running a migration that can be problematic/)
+    end
+
+    it "should give migration specific details" do
+      expect(message).to match(/no way to rename a column without downtime/)
     end
   end
 end

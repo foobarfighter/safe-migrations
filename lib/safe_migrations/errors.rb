@@ -24,6 +24,34 @@ names."
     end
   end
 
+  class UnsafeRenameColumn < UnsafeMigration
+    def migration_specific_message
+"There's no way to rename a column without downtime!!!
+
+If you really have to, you'll need to:
+ - Create a column with the new name
+ - Double-dispatch writes to both columns
+ - Backfill data from old column to new column
+ - Move reads from the old column to the new column
+ - Stop writing to the old column
+ - Drop the old column"
+    end
+  end
+
+  class UnsafeRenameTable < UnsafeMigration
+    def migration_specific_message
+"There's no way to rename a table without downtime!!!
+
+If you really have to, you'll need to:
+ - Create a table with the new name
+ - Double-dispatch writes to both tables
+ - Backfill data from old table to new table
+ - Move reads from the old table to the new table
+ - Stop writing to the old table
+ - Drop the old table"
+    end
+  end
+
   class UnsafeAddIndex < UnsafeMigration
     def migration_specific_message
 "ActiveRecord doesn't create indexes concurrently, so your table will be locked

@@ -29,6 +29,10 @@ module SafeMigrations
             raise UnsafeRemoveColumn
           when :change_table
             raise UnsafeChangeTable
+          when :rename_table
+            raise UnsafeRenameTable
+          when :rename_column
+            raise UnsafeRenameColumn
           when :add_index
             options = args[2]
             unless (options && options[:algorithm] == :concurrently)
