@@ -1,4 +1,4 @@
-safe-migrations
+safe_migrations
 ===============
 
 Assert rails migration safety at dev time.
@@ -10,7 +10,7 @@ blah blah blah
 
 Add this line to your application's Gemfile:
 
-    gem 'safe-migrations', :require => 'safe_migrations'
+    gem 'safe_migrations'
 
 And then execute:
 
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install safe-migrations
+    $ gem install safe_migrations
 
 ## Usage
 

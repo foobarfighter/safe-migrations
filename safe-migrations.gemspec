@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'safe_migrations/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "safe-migrations"
+  gem.name          = "safe_migrations"
   gem.version       = SafeMigrations::VERSION
   gem.authors       = ["Bob Remeika", "David Waller"]
   gem.email         = ["bob.remeika@gmail.com"]
