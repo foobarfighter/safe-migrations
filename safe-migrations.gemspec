@@ -4,9 +4,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'safe_migrations/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "safe-migrations"
+  gem.name          = "safe_migrations"
   gem.version       = SafeMigrations::VERSION
-  gem.authors       = ["Bob Remeika"]
+  gem.authors       = ["Bob Remeika", "David Waller"]
   gem.email         = ["bob.remeika@gmail.com"]
   gem.description   = %q{Assert rails migration safety at dev time}
   gem.summary       = %q{Protect yourself from migrations that are unsafe to run without downtime}
@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_development_dependency "rr"
-  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "rspec", "~> 3.0.0"
   gem.add_development_dependency "rake"
-  gem.add_runtime_dependency     "activerecord", "3.0.20"
+  gem.add_runtime_dependency     "activerecord", "~> 3.0.0"
 end
